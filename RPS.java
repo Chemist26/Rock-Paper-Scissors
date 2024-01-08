@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RPS {
-    private int gamesPlayed = 0;
-    private int computerWins = 0;
-    private int userWins = 0;
+    private int gamesPlayed;
+    private int computerWins;
+    private int userWins;
     private Random random = new Random();
     private JTextArea historyTextArea; // Added for displaying game history
     private ArrayList<String> gameHistory = new ArrayList<>();
@@ -29,22 +29,23 @@ public class RPS {
         JButton rockButton = new JButton();
         rockButton.setIcon(new ImageIcon("res/rock.png"));  // Set the image
         rockButton.setPreferredSize(new Dimension(200, 50));
-        rockButton.addActionListener(e -> playGame(1));
+        rockButton.addActionListener(e -> playGame(Move.ROCK));
         panel.add(rockButton);
 
         // GUI for paper
         JButton paperButton = new JButton();
         paperButton.setIcon(new ImageIcon("res/paper.png"));  // Set the image
         paperButton.setPreferredSize(new Dimension(200, 50));
-        paperButton.addActionListener(e -> playGame(2));
+        paperButton.addActionListener(e -> playGame(Move.PAPER));
         panel.add(paperButton);
 
         // GUI for scissors
         JButton scissorsButton = new JButton();
         scissorsButton.setIcon(new ImageIcon("res/scissors.png"));  // Set the image
         scissorsButton.setPreferredSize(new Dimension(200, 50));
-        scissorsButton.addActionListener(e -> playGame(3));
+        scissorsButton.addActionListener(e -> playGame(Move.SCISSORS));
         panel.add(scissorsButton);
+
 
         // Add a JTextArea for game history
         historyTextArea = new JTextArea();
@@ -63,26 +64,20 @@ public class RPS {
         frame.setVisible(true);
     }
 
-    private void playGame(int userChoice) {
-        int computerChoice = random.nextInt(3) + 1;
+    public void playGame(Move userChoice) {
+        Move computerChoice = Move.values()[random.nextInt(3)];
 
         // Display the computer's choice
-        String computerMove;
-        if (computerChoice == 1) {
-            computerMove = "rock.";
-        } else if (computerChoice == 2) {
-            computerMove = "paper.";
-        } else {
-            computerMove = "scissors.";
-        }
-        gameHistory.add("Game " + (gamesPlayed + 1) + ": You chose " + getMoveName(userChoice) + ", Computer chose " + getMoveName(computerChoice));
+        String computerMove = getMoveName(computerChoice);
+        gameHistory.add("Game " + (gamesPlayed + 1) + ": You chose " + userChoice + ", Computer chose " + computerMove);
 
         // Determine the result of the game
         String resultMessage;
         if (userChoice == computerChoice) {
             resultMessage = "<html><font color='blue'><b>It's a tie.</b></font></html>";
-        } else if ((userChoice == 1 && computerChoice == 3) || (userChoice == 2 && computerChoice == 1)
-                || (userChoice == 3 && computerChoice == 2)) {
+        } else if ((userChoice == Move.ROCK && computerChoice == Move.SCISSORS) ||
+                (userChoice == Move.PAPER && computerChoice == Move.ROCK) ||
+                (userChoice == Move.SCISSORS && computerChoice == Move.PAPER)) {
             resultMessage = "<html><font color='green'><b>You win.</b></font></html>";
             userWins++;
         } else {
@@ -103,24 +98,45 @@ public class RPS {
     }
 
 
-    private String getMoveName(int move) {
+
+
+    private String getMoveName(Move move) {
         switch (move) {
-            case 1:
+            case ROCK:
                 return "Rock";
-            case 2:
+            case PAPER:
                 return "Paper";
-            case 3:
+            case SCISSORS:
                 return "Scissors";
             default:
                 return "";
         }
     }
 
+
     private void updateHistoryTextArea() {
-        // Clear and update the history JTextArea
-        historyTextArea.setText("");
-        for (String historyItem : gameHistory) {
-            historyTextArea.append(historyItem + "\n");
+        // Check if historyTextArea is initialized
+        if (historyTextArea != null) {
+            // Clear and update the history JTextArea
+            historyTextArea.setText("");
+            for (String historyItem : gameHistory) {
+                historyTextArea.append(historyItem + "\n");
+            }
         }
     }
+
+
+    // Add getters for game statistics
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public int getComputerWins() {
+        return computerWins;
+    }
+
+    public int getUserWins() {
+        return userWins;
+    }
+
 }
