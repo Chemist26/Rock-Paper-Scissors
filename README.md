@@ -3,6 +3,7 @@
 ## Overview
 
 This is a simple Java implementation of the classic Rock, Paper, Scissors game. The game is played in a graphical user interface (GUI) created using Java Swing. Players can choose between Rock, Paper, or Scissors, and the computer randomly selects its move. The game tracks the number of games played, computer wins, and user wins.
+![image](https://github.com/Chemist26/Rock-Paper-Scissors/assets/105496440/83e45dd6-013d-4e45-bf92-363795b04181)
 
 ## Features
 
