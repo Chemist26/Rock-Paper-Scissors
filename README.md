@@ -23,7 +23,7 @@ java RPS
 ```
 
 ## How to Play
--Click on one of the buttons (Rock, Paper, or Scissors) to make your move.
+- Click on one of the buttons (Rock, Paper, or Scissors) to make your move.
 - The computer will randomly choose its move.
 - A pop-up message will display the result of the round (Win, Lose, or Tie).
 - Game statistics, including the number of games played, computer wins, and user wins, will be shown on the pop-up message.
