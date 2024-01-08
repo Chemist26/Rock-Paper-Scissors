@@ -26,19 +26,22 @@ public class RPS {
         panel.setPreferredSize(new Dimension(650, 80));
 
         // GUI for rock
-        JButton rockButton = new JButton("Rock");
+        JButton rockButton = new JButton();
+        rockButton.setIcon(new ImageIcon("res/rock.png"));  // Set the image
         rockButton.setPreferredSize(new Dimension(200, 50));
         rockButton.addActionListener(e -> playGame(1));
         panel.add(rockButton);
 
         // GUI for paper
-        JButton paperButton = new JButton("Paper");
+        JButton paperButton = new JButton();
+        paperButton.setIcon(new ImageIcon("res/paper.png"));  // Set the image
         paperButton.setPreferredSize(new Dimension(200, 50));
         paperButton.addActionListener(e -> playGame(2));
         panel.add(paperButton);
 
         // GUI for scissors
-        JButton scissorsButton = new JButton("Scissors");
+        JButton scissorsButton = new JButton();
+        scissorsButton.setIcon(new ImageIcon("res/scissors.png"));  // Set the image
         scissorsButton.setPreferredSize(new Dimension(200, 50));
         scissorsButton.addActionListener(e -> playGame(3));
         panel.add(scissorsButton);
@@ -77,13 +80,13 @@ public class RPS {
         // Determine the result of the game
         String resultMessage;
         if (userChoice == computerChoice) {
-            resultMessage = "It's a tie.";
+            resultMessage = "<html><font color='blue'><b>It's a tie.</b></font></html>";
         } else if ((userChoice == 1 && computerChoice == 3) || (userChoice == 2 && computerChoice == 1)
                 || (userChoice == 3 && computerChoice == 2)) {
-            resultMessage = "You win.";
+            resultMessage = "<html><font color='green'><b>You win.</b></font></html>";
             userWins++;
         } else {
-            resultMessage = "You lose.";
+            resultMessage = "<html><font color='red'><b>You lose.</b></font></html>";
             computerWins++;
         }
         gamesPlayed++;
@@ -98,6 +101,7 @@ public class RPS {
         // Update the history JTextArea
         updateHistoryTextArea();
     }
+
 
     private String getMoveName(int move) {
         switch (move) {
